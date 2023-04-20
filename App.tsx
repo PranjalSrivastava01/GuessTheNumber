@@ -7,8 +7,7 @@ const App = () => {
       <ImageBackground style={styles.rootStyle} source={require('../AwesomePro/assets/images/bg.png')}     resizeMode='cover'> 
       <StartGameScreen></StartGameScreen>
           </ImageBackground>
- 
-    // <Text>Hello</Text>
+
   )
 }
 
