@@ -3,14 +3,35 @@ import { StyleSheet, Text, View ,ImageBackground,SafeAreaView} from 'react-nativ
 import React from 'react'
 import StartGameScreen from './Screens/StartGameScreen'
 import GameScreen from './Screens/GameScreen'
+import GameOver from './Screens/GameOver'
 const App = () => {
-  const [useNumber,setNumber]=useState();
+  const [userNumber,setNumber]=useState();
+  const [gameIsOver,setGameIsOver]=useState(false);
+  const [guessRounds,setGuessRounds]=useState(0);
   function pickedNumberHandler(pickedNumber){
     setNumber(pickedNumber);
   }
+  function gameIsOverHandler(numberOfRounds)
+  {
+    setGameIsOver(true);
+    setGuessRounds(numberOfRounds);
+  }
+  let minBoundary=1;
+  let maxBoundary=100;
+  function StartNewGameScreen()
+  {
+    setGameIsOver(false)
+    pickedNumberHandler(0);
+     minBoundary=1;
+     maxBoundary=100;
+  }
   let screen=<StartGameScreen onPickNumber={pickedNumberHandler}></StartGameScreen>;
-  if(useNumber){
-    screen=<GameScreen useNumber={useNumber}></GameScreen>
+  if(userNumber){
+    screen=<GameScreen userNumber={userNumber} gameIsOverHandler={gameIsOverHandler} minBoundary={minBoundary} maxBoundary={maxBoundary}></GameScreen>
+  }
+  if(gameIsOver)
+  {
+    screen=<GameOver userNumber={userNumber} roundsNumber={guessRounds} onStartNewGame={StartNewGameScreen} ></GameOver>
   }
   return (
     

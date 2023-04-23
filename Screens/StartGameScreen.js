@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, TextInput,Alert } from 'react-native'
 import React from 'react'
 import PrimaryButton from '../components/PrimaryButton'
 import GameScreen from './GameScreen'
+import Title from '../components/Title'
+import Card from '../components/Card'
 const StartGameScreen = ({onPickNumber}) => {
     const [enteredNumber,setEnteredNumber]=useState('');
 
@@ -19,7 +21,7 @@ const StartGameScreen = ({onPickNumber}) => {
     if(isNaN(choserNumber) || choserNumber<=0 ){
         Alert.alert(
             'Invalid input',
-            'NUMBER SAHI SE INPUT KAR LAUDE',
+            'Please enter valid input',
             [{text:'okay',style:'destructive',onPress: setEnteredNumber},]
         )
      return;
@@ -27,9 +29,12 @@ const StartGameScreen = ({onPickNumber}) => {
     onPickNumber(choserNumber);
     }
     return (
-        <View style={styles.inputContainer}>
+        <View style={styles.rootContainer}>
+            <Title>Guess my number</Title>
+        <Card>
+            <Text style={styles.instructionText}>Enter a number</Text>
             <TextInput style={styles.numberInput}
-              maxLength={2}
+              maxLength={3}
               keyboardType='numeric'
               onChangeText={numberInputHandler}
               value={enteredNumber}
@@ -43,6 +48,7 @@ const StartGameScreen = ({onPickNumber}) => {
                 <PrimaryButton onPress={confirmInputHandler}>confirm</PrimaryButton>
                 </View>
             </View>
+        </Card>
         </View>
     )
 }
@@ -50,17 +56,14 @@ const StartGameScreen = ({onPickNumber}) => {
 export default StartGameScreen
 
 const styles = StyleSheet.create({
-    inputContainer:{
-        justifyContent:'center',
-        alignItems:'center',
-        padding:16,
-        marginHorizontal:20,
-        marginTop:100,
-        backgroundColor:'#4e0329',
-        borderRadius:8,
-        elevation:20,//android only property
-        shadowColor:'black',
-        shadowOpacity:0,
+    rootContainer:{
+        flex:1,
+        margingTop:100,
+        alignItems:'center'
+    },
+    instructionText:{
+        fontSize:24,
+        color:'white',
     },
     buttonsContainer:{
    flexDirection:'row',
